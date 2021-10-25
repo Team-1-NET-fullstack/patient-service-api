@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "eLVN8vvTGSIEb9K9iUaJazeVLxZ5hm19e+VtoLWq08MFXxVAbK+Qeo7i+rXc+5EDtuIHxjOkaVfk7qulb37ZZA==",
+  "dgSpecHash": "PJJHj9pkcjRsBNZN/tkKma370Ik2kD3AEdqTFBfQuRgL1txmIVzNqWEYOaZPkQVo9LU4BaR4ghvB95X4xCpp/w==",
   "success": true,
   "projectFilePath": "C:\\IMPACT2\\patient-service-api\\Patient.Api\\Patient.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\AparnaT\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\AparnaT\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\AparnaT\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\AparnaT\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\AparnaT\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
@@ -126,7 +128,7 @@
     "C:\\Users\\AparnaT\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\AparnaT\\.nuget\\packages\\system.private.uri\\4.3.2\\system.private.uri.4.3.2.nupkg.sha512",
     "C:\\Users\\AparnaT\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\AparnaT\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\AparnaT\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\AparnaT\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Users\\AparnaT\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\AparnaT\\.nuget\\packages\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",

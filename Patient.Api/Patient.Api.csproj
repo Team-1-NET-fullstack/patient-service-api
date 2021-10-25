@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.11">
       <PrivateAssets>all</PrivateAssets>
@@ -23,8 +24,6 @@
   <ItemGroup>
     <Folder Include="BAL\Implementation\" />
     <Folder Include="BAL\Interfaces\" />
-    <Folder Include="DAL\Implementation\" />
-    <Folder Include="DAL\Interfaces\" />
   </ItemGroup>
 
 </Project>

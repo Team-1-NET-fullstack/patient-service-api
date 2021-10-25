@@ -4,8 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Patient.Api.DAL.Implementation;
+using Patient.Api.DAL.IRepository;
+//using Patient.Api.DAL.Implementation;
+//using Patient.Api.DAL.IRepository;
 using Patient.Api.Models;
-using Patient.Api.Models.Repository;
 using System;
 
 namespace Patient.Api
@@ -22,19 +25,16 @@ namespace Patient.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            try
-            {
+          
+
                 services.AddControllers();
                 services.AddSwaggerGen();
-                services.AddDbContext<CTGeneralHospitalContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:dbconn"]));
-                //string dbconn = Configuration.GetSection("ConnectionString").GetSection("dbConn").Value;
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddDbContext<CTGeneralHospitalContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:dbconn"]));
+                string dbconn = Configuration.GetSection("ConnectionString").GetSection("dbConn").Value;
                 //services.AddDbContext<CTGeneralHospitalContext>(options => options.UseLazyLoadingProxies().UseSqlServer(dbconn));
                 services.AddScoped<IPatientsRepository, PatientRepository>();
-            }
-            catch (Exception)
-            {
-
-            }
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

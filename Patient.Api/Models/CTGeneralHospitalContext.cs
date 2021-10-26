@@ -169,7 +169,9 @@ namespace Patient.Api.Models
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
-                entity.Property(e => e.DignosisDescription)
+                entity.Property(e => e.
+                
+                DignosisDescription)
                     .IsRequired()
                     .HasMaxLength(300)
                     .IsUnicode(false);
@@ -420,11 +422,11 @@ namespace Patient.Api.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CreatedBy");
 
-                entity.HasOne(d => d.Nominee)
-                    .WithMany(p => p.Patients)
-                    .HasForeignKey(d => d.NomineeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_NomineeId");
+                //entity.HasOne(d => d.Nominee)
+                //    .WithMany(p => p.Patients)
+                //    .HasForeignKey(d => d.NomineeId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_NomineeId");
 
                 entity.HasOne(d => d.UpdatedByNavigation)
                     .WithMany(p => p.PatientUpdatedByNavigations)
@@ -493,10 +495,10 @@ namespace Patient.Api.Models
                     .HasMaxLength(300)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DignosisDescription)
-                    .IsRequired()
-                    .HasMaxLength(300)
-                    .IsUnicode(false);
+                //entity.Property(e => e.DignosisDescription)
+                //    .IsRequired()
+                //    .HasMaxLength(300)
+                //    .IsUnicode(false);
 
                 entity.Property(e => e.MedicationDescription)
                     .IsRequired()

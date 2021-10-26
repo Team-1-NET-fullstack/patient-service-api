@@ -1,16 +1,15 @@
-﻿using Patient.Api.Models;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Patient.Api.DAL.IRepository
 {
-    public interface IPatientsRepository
+  public  interface IPatientsVisitRepository
     {
-        IList<IPatientsRepository> GetPatients();
+        IList<IPatientsVisitRepository> GetPatients();
         public void GetPatient(int id);
-        Task<Models.Patient> PostPatient(Models.Patient patient);
+        Task<Models.Patient> PostPatient(Models.Patient patientvisits);
         public void DeletePatient(int id);
-       
     }
 }

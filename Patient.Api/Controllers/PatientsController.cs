@@ -50,7 +50,6 @@ namespace Patient.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPatient(int id, [FromBody] Models.DTOs.PatientDto patient)
         {
-
             var patientToBeEdited = _context.Patients.Find(id);
 
             if (patientToBeEdited == null)

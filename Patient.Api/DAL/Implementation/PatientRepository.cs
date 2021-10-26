@@ -37,15 +37,10 @@ namespace Patient.Api.DAL.Implementation
 
         }
 
-        IList<IPatientsRepository> IPatientsRepository.GetPatients()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IPatientsRepository.GetPatient(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //void IPatientsRepository.GetPatient(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //async Task<Models.Patient> IPatientsRepository.PutPatient(Models.Patient patient)
         //{
@@ -61,5 +56,24 @@ namespace Patient.Api.DAL.Implementation
             return obj.Entity;
         }
 
+        IList<IPatientsRepository> IPatientsRepository.GetPatients()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IPatientsRepository.GetPatient(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Models.Patient> IPatientsRepository.PostPatient(Models.Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IPatientsRepository.DeletePatient(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

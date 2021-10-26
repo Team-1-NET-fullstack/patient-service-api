@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -30,7 +31,11 @@ namespace Patient.Api.Models
         public string State { get; set; }
         public int ContactNumber { get; set; }
         public int EmergencyContact { get; set; }
-        public int NomineeId { get; set; }
+       
+        //[ForeignKey("PatientsNominee")]
+        //public PatientsNominee PatientsNominee { get;set;}
+       
+         public int NomineeId { get; set; }
         //public DateTime InsertDate { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

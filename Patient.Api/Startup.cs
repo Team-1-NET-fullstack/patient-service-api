@@ -6,8 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Patient.Api.DAL.Implementation;
 using Patient.Api.DAL.IRepository;
-//using Patient.Api.DAL.Implementation;
-//using Patient.Api.DAL.IRepository;
 using Patient.Api.Models;
 using System;
 
@@ -33,8 +31,11 @@ namespace Patient.Api
             services.AddDbContext<CTGeneralHospitalContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:dbconn"]));
                 string dbconn = Configuration.GetSection("ConnectionString").GetSection("dbConn").Value;
                 //services.AddDbContext<CTGeneralHospitalContext>(options => options.UseLazyLoadingProxies().UseSqlServer(dbconn));
-                services.AddScoped<IPatientsRepository, PatientRepository>();
-          
+            
+            services.AddScoped<IPatientsRepository, PatientRepository>();
+            services.AddScoped<IPatientsVisitRepository, PatientVisitRepository>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

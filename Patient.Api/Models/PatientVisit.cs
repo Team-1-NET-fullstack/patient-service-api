@@ -32,7 +32,7 @@ namespace Patient.Api.Models
         public DateTime UpdatedDate { get; set; }
         public int PatientId { get; set; }
         public int PhysicianId { get; set; }
-        public string DignosisDescription { get; set; }
+      //  public string DignosisDescription { get; set; }
 
         public virtual User CreatedByNavigation { get; set; }
         public virtual Patient Patient { get; set; }

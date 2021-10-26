@@ -7,6 +7,7 @@ namespace Patient.Api.Models.DTOs
 {
     public class PatientDto
     {
+
         public int PatientId { get; set; }
         public string Title { get; set; }
         public string FirstName { get; set; }
@@ -22,6 +23,7 @@ namespace Patient.Api.Models.DTOs
         public int ContactNumber { get; set; }
         public int EmergencyContact { get; set; }
         public int NomineeId { get; set; }
+
         //public DateTime InsertDate { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

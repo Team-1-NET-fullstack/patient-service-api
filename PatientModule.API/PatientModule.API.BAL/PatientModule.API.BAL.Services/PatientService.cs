@@ -17,7 +17,7 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
         }
 
         //GET All Note Details   
-        public IEnumerable<Patient> GetAllPatients()
+        public IEnumerable<Patient> GetAllVisits()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
             return await _patientRepository.Create(patient);
         }
         //Delete Note   
-        public bool DeletePatient(int id)
+        public bool DeleteVisit(int id)
         {
             try
             {

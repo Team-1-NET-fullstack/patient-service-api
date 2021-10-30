@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PatientModule.API.Models;
 using PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services;
@@ -63,7 +59,7 @@ namespace PatientModule.API.Controllers
         {
             try
             {
-                _patientService.DeletePatient(id);
+                _patientService.DeleteVisit(id);
                 return true;
             }
             catch (Exception)
@@ -75,7 +71,7 @@ namespace PatientModule.API.Controllers
         [HttpGet("GetAllPatients")]
         public Object GetAllPatients()
         {
-            var data = _patientService.GetAllPatients();
+            var data = _patientService.GetAllVisits();
             var json = JsonConvert.SerializeObject(data, Formatting.Indented,
                 new JsonSerializerSettings()
                 {

@@ -8,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PatientModule.API.Models;
-using PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Interfaces;
 using PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services;
 using PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Implementations;
 using PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
@@ -40,7 +39,7 @@ namespace PatientModule.API
 
             services.AddDbContext<CTGeneralHospitalContext>(opts => opts.UseSqlServer(Configuration["ConnectionStrings:dbconn"]));
             string dbconn = Configuration.GetSection("ConnectionString").GetSection("dbConn").Value;
-            services.AddScoped<IPateintService<Patient>, PatientService>();
+            services.AddScoped<PatientService>();
             services.AddScoped<IPatientRepository<Patient>, PatientRepository>();
 
         }

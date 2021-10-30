@@ -15,6 +15,19 @@ namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Implemen
             _context = context;
         }
 
+        public async Task<Patient> Create(Patient _object)
+        {
+            var obj = await _context.Patients.AddAsync(_object);
+            _context.SaveChanges();
+            return obj.Entity;
+        }
+
+        public void Delete(Patient _object)
+        {
+            _context.Remove(_object);
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Patient> GetAll()
         {
             return _context.Patients.ToList();
@@ -22,7 +35,12 @@ namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Implemen
 
         public Patient GetById(int id)
         {
-            return _context.Patients.Find(id);
+            return _context.Patients.Where(s => s.PatientId == id).FirstOrDefault();
+        }
+
+        public Task<Patient> Update(Patient _object)
+        {
+            throw new NotImplementedException();
         }
     }
 }

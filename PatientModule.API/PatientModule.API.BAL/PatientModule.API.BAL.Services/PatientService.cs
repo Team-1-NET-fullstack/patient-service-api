@@ -1,5 +1,4 @@
 ﻿using PatientModule.API.Models;
-using PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Interfaces;
 using PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
 {
-    public class PatientService: IPateintService<Patient>
+    public class PatientService
     {
         private readonly IPatientRepository<Patient> _patientRepository;
         public PatientService(IPatientRepository<Patient> patientRepository)
@@ -17,14 +16,47 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
 
         }
 
-        public IEnumerable<Patient> GetAll()
+        //GET All Note Details   
+        public IEnumerable<Patient> GetAllPatients()
         {
-            return _patientRepository.GetAll();
+            try
+            {
+                return (IEnumerable<Patient>)_patientRepository.GetAll().ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        //Get Notes By Id  
+        public IEnumerable<Patient> GetPatientById(int id)
+        {
+            return _patientRepository.GetAll().Where(x => x.PatientId == id).ToList();
         }
 
-        public Patient GetById(int id)
+        //Add Note
+        public async Task<Patient> AddPatient(Patient patient)
         {
-            return _patientRepository.GetById(id);
+            return await _patientRepository.Create(patient);
         }
+        //Delete Note   
+        public bool DeletePatient(int id)
+        {
+            try
+            {
+                var DataList = _patientRepository.GetAll().Where(x => x.PatientId == id).ToList();
+                foreach (var item in DataList)
+                {
+                    _patientRepository.Delete(item);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return true;
+            }
+        }
+
+
     }
 }

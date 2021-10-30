@@ -30,9 +30,9 @@ namespace PatientModule.API.Controllers
 
         // GET api/<PatientModuleController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Patient Get(int id)
         {
-            return "value";
+            return _pateintService.GetById(id);
         }
 
         // POST api/<PatientModuleController>

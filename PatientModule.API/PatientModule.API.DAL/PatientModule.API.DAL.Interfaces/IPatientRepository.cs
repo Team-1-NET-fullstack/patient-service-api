@@ -9,5 +9,6 @@ namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Interfac
     public interface IPatientRepository<T> where T:class
     {
         IEnumerable<T> GetAll();
+        Patient GetById(int id);
     }
 }

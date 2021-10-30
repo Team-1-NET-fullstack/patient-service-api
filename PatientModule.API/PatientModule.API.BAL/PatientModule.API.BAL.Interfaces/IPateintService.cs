@@ -9,5 +9,6 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Interfac
     public interface IPateintService<T> where T:class
     {
         IEnumerable<T> GetAll();
+        Patient GetById(int id);
     }
 }

@@ -19,5 +19,10 @@ namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Implemen
         {
             return _context.Patients.ToList();
         }
+
+        public Patient GetById(int id)
+        {
+            return _context.Patients.Find(id);
+        }
     }
 }

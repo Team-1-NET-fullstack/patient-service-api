@@ -21,5 +21,10 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
         {
             return _patientRepository.GetAll();
         }
+
+        public Patient GetById(int id)
+        {
+            return _patientRepository.GetById(id);
+        }
     }
 }

@@ -52,11 +52,9 @@ namespace PatientModule.API.Models
             modelBuilder.Entity<Allergy>(entity =>
             {
                 entity.HasKey(e => e.PatientAllergyId)
-                    .HasName("PK__Allergy__A49EBE4234C6562A");
+                    .HasName("PK__Allergy__2844413DB8303429");
 
                 entity.ToTable("Allergy");
-
-                entity.Property(e => e.PatientAllergyId).ValueGeneratedNever();
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -74,6 +72,12 @@ namespace PatientModule.API.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ALCreatedBy");
 
+                entity.HasOne(d => d.PatientVisit)
+                    .WithMany(p => p.Allergies)
+                    .HasForeignKey(d => d.PatientVisitId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_APatientVisitId");
+
                 entity.HasOne(d => d.UpdatedByNavigation)
                     .WithMany(p => p.AllergyUpdatedByNavigations)
                     .HasForeignKey(d => d.UpdatedBy)
@@ -84,9 +88,7 @@ namespace PatientModule.API.Models
             modelBuilder.Entity<AllergyMaster>(entity =>
             {
                 entity.HasKey(e => e.AllergyMastersId)
-                    .HasName("PK__AllergyM__915CEE74849D0761");
-
-                entity.Property(e => e.AllergyMastersId).ValueGeneratedNever();
+                    .HasName("PK__AllergyM__915CEE74228C895B");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -113,8 +115,6 @@ namespace PatientModule.API.Models
             modelBuilder.Entity<Appointment>(entity =>
             {
                 entity.ToTable("Appointment");
-
-                entity.Property(e => e.AppointmentId).ValueGeneratedNever();
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -159,8 +159,6 @@ namespace PatientModule.API.Models
             {
                 entity.ToTable("Diagnosis");
 
-                entity.Property(e => e.DiagnosisId).ValueGeneratedNever();
-
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.DignosisDescription)
@@ -171,7 +169,7 @@ namespace PatientModule.API.Models
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.CreatedByNavigation)
-                    .WithMany(p => p.Diagnoses)
+                    .WithMany(p => p.DiagnosisCreatedByNavigations)
                     .HasForeignKey(d => d.CreatedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DCreatedBy");
@@ -187,14 +185,24 @@ namespace PatientModule.API.Models
                     .HasForeignKey(d => d.PatientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DPatientId");
+
+                entity.HasOne(d => d.PatientVisit)
+                    .WithMany(p => p.Diagnoses)
+                    .HasForeignKey(d => d.PatientVisitId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DPatientsVisitsId");
+
+                entity.HasOne(d => d.UpdatedByNavigation)
+                    .WithMany(p => p.DiagnosisUpdatedByNavigations)
+                    .HasForeignKey(d => d.UpdatedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DUpdatedBy");
             });
 
             modelBuilder.Entity<DiagnosisMaster>(entity =>
             {
                 entity.HasKey(e => e.DiagnosisMastersId)
-                    .HasName("PK__Diagnosi__06BCD58C07C31142");
-
-                entity.Property(e => e.DiagnosisMastersId).ValueGeneratedNever();
+                    .HasName("PK__Diagnosi__06BCD58C040FEC85");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -209,11 +217,23 @@ namespace PatientModule.API.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.DiagnosisMasterCreatedByNavigations)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DMCreatedBy");
+
+                entity.HasOne(d => d.UpdatedByNavigation)
+                    .WithMany(p => p.DiagnosisMasterUpdatedByNavigations)
+                    .HasForeignKey(d => d.UpdatedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DMUpdatedBy");
             });
 
             modelBuilder.Entity<Medication>(entity =>
             {
-                entity.Property(e => e.MedicationId).ValueGeneratedNever();
+                entity.Property(e => e.MedicationId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -222,14 +242,48 @@ namespace PatientModule.API.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.MedicationCreatedByNavigations)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MCreatedBy");
+
+                entity.HasOne(d => d.MedicationNavigation)
+                    .WithOne(p => p.MedicationMedicationNavigation)
+                    .HasForeignKey<Medication>(d => d.MedicationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MedicationMasterId");
+
+                entity.HasOne(d => d.MedicationMaster)
+                    .WithMany(p => p.MedicationMedicationMasters)
+                    .HasForeignKey(d => d.MedicationMasterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MMedicationID");
+
+                entity.HasOne(d => d.Patient)
+                    .WithMany(p => p.Medications)
+                    .HasForeignKey(d => d.PatientId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MedicationsPatientId");
+
+                entity.HasOne(d => d.PatientVisit)
+                    .WithMany(p => p.Medications)
+                    .HasForeignKey(d => d.PatientVisitId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MPatientsVisits");
+
+                entity.HasOne(d => d.UpdatedByNavigation)
+                    .WithMany(p => p.MedicationUpdatedByNavigations)
+                    .HasForeignKey(d => d.UpdatedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MUpdatedBy");
             });
 
             modelBuilder.Entity<MedicationsMaster>(entity =>
             {
                 entity.HasKey(e => e.MedicationMastersId)
-                    .HasName("PK__Medicati__867661AE6698B80D");
-
-                entity.Property(e => e.MedicationMastersId).ValueGeneratedNever();
+                    .HasName("PK__Medicati__867661AE2429733E");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -265,8 +319,6 @@ namespace PatientModule.API.Models
 
             modelBuilder.Entity<Note>(entity =>
             {
-                entity.Property(e => e.NoteId).ValueGeneratedNever();
-
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Message).IsRequired();
@@ -300,8 +352,6 @@ namespace PatientModule.API.Models
 
             modelBuilder.Entity<Patient>(entity =>
             {
-                entity.Property(e => e.PatientId).ValueGeneratedNever();
-
                 entity.Property(e => e.Address)
                     .IsRequired()
                     .IsUnicode(false);
@@ -310,8 +360,9 @@ namespace PatientModule.API.Models
 
                 entity.Property(e => e.Dob).HasColumnType("date");
 
-                entity.Property(e => e.EmailId)
-                    .HasMaxLength(40)
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.FirstName)
@@ -349,26 +400,64 @@ namespace PatientModule.API.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.PatientCreatedByNavigations)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreatedBy");
+
+                entity.HasOne(d => d.UpdatedByNavigation)
+                    .WithMany(p => p.PatientUpdatedByNavigations)
+                    .HasForeignKey(d => d.UpdatedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UpdatedBy");
             });
 
             modelBuilder.Entity<PatientMedicalDetail>(entity =>
             {
                 entity.HasKey(e => e.PatientMedicalDetailsId)
-                    .HasName("PK__PatientM__4DD4333D359D25B1");
-
-                entity.Property(e => e.PatientMedicalDetailsId).ValueGeneratedNever();
+                    .HasName("PK__PatientM__CBA3DC53D1881E49");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ProcedureId).HasColumnName("ProcedureID");
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Diagnosis)
+                    .WithMany(p => p.PatientMedicalDetails)
+                    .HasForeignKey(d => d.DiagnosisId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DiagnosisId");
+
+                entity.HasOne(d => d.Medication)
+                    .WithMany(p => p.PatientMedicalDetails)
+                    .HasForeignKey(d => d.MedicationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MedicalId");
+
+                entity.HasOne(d => d.PatientAllergy)
+                    .WithMany(p => p.PatientMedicalDetails)
+                    .HasForeignKey(d => d.PatientAllergyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PatientMedicalDetails");
+
+                entity.HasOne(d => d.PatientVisit)
+                    .WithMany(p => p.PatientMedicalDetails)
+                    .HasForeignKey(d => d.PatientVisitId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PatientVisitId");
+
+                entity.HasOne(d => d.Procedure)
+                    .WithMany(p => p.PatientMedicalDetails)
+                    .HasForeignKey(d => d.ProcedureId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProcedureId");
             });
 
             modelBuilder.Entity<PatientVisit>(entity =>
             {
-                entity.Property(e => e.PatientVisitId).ValueGeneratedNever();
-
                 entity.Property(e => e.AllergyDescription)
                     .IsRequired()
                     .HasMaxLength(300)
@@ -395,6 +484,8 @@ namespace PatientModule.API.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.StartTime).HasColumnType("datetime");
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
@@ -427,19 +518,23 @@ namespace PatientModule.API.Models
 
             modelBuilder.Entity<PatientVital>(entity =>
             {
-                entity.Property(e => e.PatientVitalId).ValueGeneratedNever();
-
                 entity.Property(e => e.BloodPressure)
                     .IsRequired()
                     .HasMaxLength(7);
 
                 entity.Property(e => e.RespirationRate).HasColumnName("Respiration Rate");
+
+                entity.HasOne(d => d.PatientVisit)
+                    .WithMany(p => p.PatientVitals)
+                    .HasForeignKey(d => d.PatientVisitId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PatientsVitals");
             });
 
             modelBuilder.Entity<PatientsNominee>(entity =>
             {
-
-                entity.HasNoKey();
+                entity.HasKey(e => e.NomineeId)
+                    .HasName("PK__Patients__40B5EA165AB375C1");
 
                 entity.ToTable("PatientsNominee");
 
@@ -470,30 +565,10 @@ namespace PatientModule.API.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.CreatedByNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.CreatedBy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PNCreatedBy");
-
-                entity.HasOne(d => d.Patient)
-                    .WithMany()
-                    .HasForeignKey(d => d.PatientId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PNPatientId");
-
-                entity.HasOne(d => d.UpdatedByNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.UpdatedBy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PNUpdatedBy");
             });
 
             modelBuilder.Entity<Procedure>(entity =>
             {
-                entity.Property(e => e.ProcedureId).ValueGeneratedNever();
-
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ProcedureDescription)
@@ -503,7 +578,7 @@ namespace PatientModule.API.Models
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.CreatedByNavigation)
-                    .WithMany(p => p.Procedures)
+                    .WithMany(p => p.ProcedureCreatedByNavigations)
                     .HasForeignKey(d => d.CreatedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PCreatedBy");
@@ -513,14 +588,30 @@ namespace PatientModule.API.Models
                     .HasForeignKey(d => d.PatientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PPatientId");
+
+                entity.HasOne(d => d.PatientVisit)
+                    .WithMany(p => p.Procedures)
+                    .HasForeignKey(d => d.PatientVisitId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PPatientsVisits");
+
+                entity.HasOne(d => d.ProcedureMaster)
+                    .WithMany(p => p.Procedures)
+                    .HasForeignKey(d => d.ProcedureMasterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProcedureMasterId");
+
+                entity.HasOne(d => d.UpdatedByNavigation)
+                    .WithMany(p => p.ProcedureUpdatedByNavigations)
+                    .HasForeignKey(d => d.UpdatedBy)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PUpdatedBy");
             });
 
             modelBuilder.Entity<ProcedureMaster>(entity =>
             {
                 entity.HasKey(e => e.ProcedureMastersId)
-                    .HasName("PK__Procedur__079352C2C93AD248");
-
-                entity.Property(e => e.ProcedureMastersId).ValueGeneratedNever();
+                    .HasName("PK__Procedur__079352C27B0365CE");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -551,8 +642,6 @@ namespace PatientModule.API.Models
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.RoleId).ValueGeneratedNever();
-
                 entity.Property(e => e.RoleName)
                     .IsRequired()
                     .HasMaxLength(10)
@@ -561,17 +650,13 @@ namespace PatientModule.API.Models
 
             modelBuilder.Entity<TimeSlot>(entity =>
             {
-                entity.Property(e => e.TimeSlotId).ValueGeneratedNever();
-
                 entity.Property(e => e.Slots).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.EmailId, "UQ__Users__7ED91AEEB71FFE59")
+                entity.HasIndex(e => e.EmailId, "UQ__Users__7ED91AEE313BED1D")
                     .IsUnique();
-
-                entity.Property(e => e.UserId).ValueGeneratedNever();
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
@@ -585,6 +670,16 @@ namespace PatientModule.API.Models
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(30);
+
+                entity.Property(e => e.Gender)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IsActive).HasColumnName("isActive");
+
+                entity.Property(e => e.IsBlocked).HasColumnName("isBlocked");
+
+                entity.Property(e => e.IsFirstTimeUser).HasColumnName("isFirstTimeUser");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
@@ -601,11 +696,7 @@ namespace PatientModule.API.Models
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_URoleId");
+                entity.Property(e => e.WrongAttempts).HasColumnName("wrongAttempts");
             });
 
             OnModelCreatingPartial(modelBuilder);

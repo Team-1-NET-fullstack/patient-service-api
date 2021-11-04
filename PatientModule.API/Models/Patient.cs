@@ -11,6 +11,7 @@ namespace PatientModule.API.Models
         {
             Appointments = new HashSet<Appointment>();
             Diagnoses = new HashSet<Diagnosis>();
+            Medications = new HashSet<Medication>();
             PatientVisits = new HashSet<PatientVisit>();
             Procedures = new HashSet<Procedure>();
         }
@@ -33,11 +34,13 @@ namespace PatientModule.API.Models
         public DateTime CreatedDate { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public string EmailId { get; set; }
-        //public PatientsNominee patientsNominee { get; set; }
+        public string Email { get; set; }
 
+        public virtual User CreatedByNavigation { get; set; }
+        public virtual User UpdatedByNavigation { get; set; }
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<Diagnosis> Diagnoses { get; set; }
+        public virtual ICollection<Medication> Medications { get; set; }
         public virtual ICollection<PatientVisit> PatientVisits { get; set; }
         public virtual ICollection<Procedure> Procedures { get; set; }
     }

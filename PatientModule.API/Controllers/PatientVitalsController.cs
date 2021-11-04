@@ -6,10 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
 using PatientModule.API.Models;
 using PatientModule.API.PatientModule.API.BAL;
-using PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services;
-using PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
 
 namespace PatientModule.API.Controllers
 {
@@ -27,7 +26,6 @@ namespace PatientModule.API.Controllers
             _patientVitalRepository = patientVitalRepository;
 
         }
-        // GET: api/PatientVitals
         [HttpGet]
         public Object GetAllVitals()
         {
@@ -40,7 +38,6 @@ namespace PatientModule.API.Controllers
             );
             return json;
         }
-        // GET: api/PatientVitals/5
         [HttpGet("{id}")]
         public Object GetVitalsById(int id)
         {
@@ -54,8 +51,7 @@ namespace PatientModule.API.Controllers
             return json;
         }
 
-        // PUT: api/PatientVitals/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+       
         [HttpPut("{id}")]
         //public async Task<IActionResult> PutPatientVital(int id, PatientVital patientVital)
         //{
@@ -85,8 +81,7 @@ namespace PatientModule.API.Controllers
         //    return NoContent();
         //}
 
-        // POST: api/PatientVitals
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+       
         [HttpPost]
         public async Task<Object> AddVitals([FromBody] PatientVital patientVital)
         {
@@ -95,14 +90,13 @@ namespace PatientModule.API.Controllers
                 await _patientVitalService.AddVital(patientVital);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return false;
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new patient visit record  " + ex);
             }
         }
-        // DELETE: api/PatientVitals/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] 
         public bool DeleteVitals(int id)
         {
             try

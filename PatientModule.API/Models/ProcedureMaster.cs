@@ -7,6 +7,11 @@ namespace PatientModule.API.Models
 {
     public partial class ProcedureMaster
     {
+        public ProcedureMaster()
+        {
+            Procedures = new HashSet<Procedure>();
+        }
+
         public int ProcedureMastersId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -18,5 +23,6 @@ namespace PatientModule.API.Models
 
         public virtual User CreatedByNavigation { get; set; }
         public virtual User UpdatedByNavigation { get; set; }
+        public virtual ICollection<Procedure> Procedures { get; set; }
     }
 }

@@ -18,5 +18,11 @@ namespace PatientModule.API.Models
         public DateTime UpdatedDate { get; set; }
         public int CreatedBy { get; set; }
         public int PatientId { get; set; }
+
+        public virtual Diagnosis Diagnosis { get; set; }
+        public virtual Medication Medication { get; set; }
+        public virtual Allergy PatientAllergy { get; set; }
+        public virtual PatientVisit PatientVisit { get; set; }
+        public virtual Procedure Procedure { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace PatientModule.API.PatientModule.API.BAL
 
         }
 
-        //GET All Note Details   
+        //GET All Patient Details   
         public IEnumerable<PatientVisit> GetAllVisits()
         {
             try
@@ -28,7 +28,7 @@ namespace PatientModule.API.PatientModule.API.BAL
                 throw;
             }
         }
-        //Get Notes By Id  
+        //Get Patient By Id  
         public IEnumerable<PatientVisit> GetVisitById(int id)
         {
             return _patientVisitRepository.GetAll().Where(x => x.PatientVisitId == id).ToList();
@@ -37,9 +37,10 @@ namespace PatientModule.API.PatientModule.API.BAL
         //Add Note
         public async Task<PatientVisit> AddVisit(PatientVisit patient)
         {
+            //patient.StartTime=DateTime.;
             return await _patientVisitRepository.CreateVisit(patient);
         }
-        //Delete Note   
+        //Delete Patient   
         public bool DeleteVisit(int id)
         {
             try

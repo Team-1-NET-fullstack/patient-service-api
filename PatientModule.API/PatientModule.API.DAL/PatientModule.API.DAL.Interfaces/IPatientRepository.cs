@@ -9,11 +9,15 @@ namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Interfac
     public interface IPatientRepository<T> where T:class
     {
         public Task<T> Create(T _object);
-        public Task<T> Update(T _object);
+  
         public IEnumerable<T> GetAll();
 
         public T GetById(int Id);
+        public void Update(T _object);
 
         public void Delete(T _object);
+        //public   void Update(int id, Patient patient);
+        //public Task<T> Update(int id, T _object);
+
     }
 }

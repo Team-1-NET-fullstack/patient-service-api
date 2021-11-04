@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PatientModule.API.Models;
@@ -12,7 +13,7 @@ namespace PatientModule.API.Controllers
     [ApiController]
     public class PatientsController : ControllerBase
     {
-        private readonly PatientService  _patientService;
+        private readonly PatientService _patientService;
 
         private readonly IPatientRepository<Patient> _patientRepository;
 
@@ -23,7 +24,7 @@ namespace PatientModule.API.Controllers
 
         }
 
-        //GET All Note by ID
+        //GET All Patient by ID
         [HttpGet("GetPatientById")]
         public Object GetPatientById(int id)
         {
@@ -38,7 +39,7 @@ namespace PatientModule.API.Controllers
         }
 
 
-        //Add Notes  
+        //Add Patient 
         [HttpPost("AddPatient")]
         public async Task<Object> AddPatient([FromBody] Patient patient)
         {
@@ -47,13 +48,13 @@ namespace PatientModule.API.Controllers
                 await _patientService.AddPatient(patient);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return false;
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new patient record  " + ex);
             }
         }
-        //Delete Notes  
+        //Delete Patient  
         [HttpDelete("DeletePatient")]
         public bool DeletePatient(int id)
         {
@@ -64,24 +65,54 @@ namespace PatientModule.API.Controllers
             }
             catch (Exception)
             {
+                //return StatusCode(StatusCodes.Status500InternalServerError , ex);
                 return false;
             }
         }
-        //GET All Notes  
+        [HttpPut("{id}")]
+        //public IActionResult PutPatient(int id, [FromBody] Patient patient)
+        //{
+        //    var patientToBeEdited = _patientService.UpdatePatient(id, patient);
+        //    return (IActionResult)patientToBeEdited;
+        //}
+
+        //GET All Patientc
         [HttpGet("GetAllPatients")]
         public Object GetAllPatients()
         {
-            var data = _patientService.GetAllVisits();
-            var json = JsonConvert.SerializeObject(data, Formatting.Indented,
-                new JsonSerializerSettings()
-                {
-                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                }
-            );
-            return json;
+            try
+            {
+                var data = _patientService.GetAllVisits();
+                var json = JsonConvert.SerializeObject(data, Formatting.Indented,
+                    new JsonSerializerSettings()
+                    {
+                        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    }
+                );
+                return json;
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error displaying patient record  " + ex);
+            }
+        }
+        [HttpPut("UpdatePatient")]
+        public bool UpdatePatient(Patient Object,int id)
+        {
+            try
+            {
+                _patientService.UpdatePatient(Object,id);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-
-
     }
+
 }
+

@@ -20,6 +20,8 @@ namespace PatientModule.API.Models
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
 
+        public virtual User CreatedByNavigation { get; set; }
+        public virtual User UpdatedByNavigation { get; set; }
         public virtual ICollection<Diagnosis> Diagnoses { get; set; }
     }
 }

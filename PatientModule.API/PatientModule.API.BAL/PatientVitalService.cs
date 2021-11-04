@@ -1,4 +1,5 @@
-﻿using PatientModule.API.Models;
+﻿using PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
+using PatientModule.API.Models;
 using PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,6 @@ namespace PatientModule.API.PatientModule.API.BAL
         {
             _patientVitalRepository = patientVitalRepository;
         }
-       
-        //GET All Note Details   
         public IEnumerable<PatientVital> GetAllVitals()
         {
             try
@@ -27,7 +26,6 @@ namespace PatientModule.API.PatientModule.API.BAL
                 throw;
             }
         }
-
         public IEnumerable<PatientVital> GetVitalById(int id)
         {
             return _patientVitalRepository.GetAllVital().Where(x => x.PatientVitalId == id).ToList();
@@ -36,7 +34,6 @@ namespace PatientModule.API.PatientModule.API.BAL
         {
             return await _patientVitalRepository.CreateVital(patientVital);
         }
-        //Delete Note   
         public bool DeleteVital(int id)
         {
             try
@@ -44,7 +41,7 @@ namespace PatientModule.API.PatientModule.API.BAL
                 var DataList = _patientVitalRepository.GetAllVital().Where(x => x.PatientVitalId == id).ToList();
                 foreach (var item in DataList)
                 {
-                    _patientVitalRepository.DeleteVital(item);  
+                    _patientVitalRepository.DeleteVital(item);
                 }
                 return true;
             }

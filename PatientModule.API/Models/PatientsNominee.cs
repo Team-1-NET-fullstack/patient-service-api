@@ -20,9 +20,5 @@ namespace PatientModule.API.Models
         public DateTime CreatedDate { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-
-        public virtual User CreatedByNavigation { get; set; }
-        public virtual Patient Patient { get; set; }
-        public virtual User UpdatedByNavigation { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
 
         }
 
-        //GET All Note Details   
+        //GET All Patient Details   
         public IEnumerable<Patient> GetAllVisits()
         {
             try
@@ -34,12 +34,37 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
             return _patientRepository.GetAll().Where(x => x.PatientId == id).ToList();
         }
 
-        //Add Note
+        //Add Patient
         public async Task<Patient> AddPatient(Patient patient)
         {
+            patient.CreatedDate = DateTime.Now;
+            patient.UpdatedDate = DateTime.Now;
+
             return await _patientRepository.Create(patient);
         }
-        //Delete Note   
+        public bool UpdatePatient(Patient patient,int id)
+        {
+            try
+            {
+                var DataList = _patientRepository.GetAll().Where(x => x.PatientId==id).ToList();
+                foreach (var item in DataList)
+                {
+                    _patientRepository.Update(item);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return true;
+            }
+        }
+        //Update Patient
+        //public bool UpdatePatient(int id,Patient patient)
+        //{
+        //    _patientRepository.Update(patient);
+        //    return true;
+        //}
+        //Delete Patient   
         public bool DeleteVisit(int id)
         {
             try
@@ -57,6 +82,13 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
             }
         }
 
+      
 
+        //public Task<Patient> UpdatePatient(int id, Patient patient)
+        //{
+        //    var patientEdit = _patientRepository.Update(id, patient);
+        //    return patientEdit;
+        //}
     }
 }
+

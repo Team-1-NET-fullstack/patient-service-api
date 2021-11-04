@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
 using PatientModule.API.Models;
 using PatientModule.API.PatientModule.API.BAL;
 using PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services;
@@ -31,7 +32,17 @@ namespace PatientModule.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:59523", "http://localhost:4200")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -43,10 +54,14 @@ namespace PatientModule.API
             services.AddScoped<PatientService>();
             services.AddScoped<PatientVisitService>();
             services.AddScoped<PatientVitalService>();
+            services.AddScoped<AllergyService>();
+
 
             services.AddScoped<IPatientRepository<Patient>, PatientRepository>();
             services.AddScoped<IPatientVisitRepository<PatientVisit>, PatientVisitRepository>();
             services.AddScoped<IPatientVitalRepository<PatientVital>, PatientVitalRepository>();
+
+            services.AddScoped<IAllergyRepository<Allergy>, AllergyRepository>();
 
         }
 
@@ -62,6 +77,14 @@ namespace PatientModule.API
 
             app.UseRouting();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+
+
+            app.UseHttpsRedirection();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

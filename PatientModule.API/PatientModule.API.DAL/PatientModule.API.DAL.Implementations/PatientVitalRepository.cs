@@ -1,4 +1,5 @@
-﻿using PatientModule.API.Models;
+﻿using PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
+using PatientModule.API.Models;
 using PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
 using System;
 using System.Collections.Generic;

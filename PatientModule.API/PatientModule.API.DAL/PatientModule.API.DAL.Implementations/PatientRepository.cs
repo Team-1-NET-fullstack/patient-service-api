@@ -1,8 +1,12 @@
-﻿using PatientModule.API.Models;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PatientModule.API.Models;
 using PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Implementations
@@ -38,9 +42,35 @@ namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Implemen
             return _context.Patients.Where(s => s.PatientId == id).FirstOrDefault();
         }
 
-        public Task<Patient> Update(Patient _object)
+        public void Update(Patient _object)
         {
-            throw new NotImplementedException();
+            _context.Patients.Update(_object);
+            _context.SaveChanges();
         }
+        //        //public  Task<Patient> Update(int id, Patient patient)
+
+
+        //public Task<Patient> Update(int id, Patient patient)
+        //{
+        //    var entity = _context.Patients.FirstOrDefault(e => e.PatientId == id);
+
+        //entity.Title = patient.Title;
+        //    entity.FirstName = patient.FirstName;
+        //    entity.LastName = patient.LastName;
+        //    entity.Gender = patient.Gender;
+        //    entity.Race = patient.Race;
+        //    entity.Languages = patient.Languages;
+        //    entity.Email = patient.Email;
+        //    entity.Address = patient.Address;
+        //    entity.PinCode = patient.PinCode;
+        //    entity.CountryCode = patient.CountryCode;
+        //    entity.ContactNumber = patient.ContactNumber;
+        //    entity.EmergencyContact = patient.EmergencyContact;
+        //    _context.SaveChanges();
+
+        //}
+
+
     }
 }
+

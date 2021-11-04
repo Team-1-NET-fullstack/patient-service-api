@@ -7,6 +7,11 @@ namespace PatientModule.API.Models
 {
     public partial class MedicationsMaster
     {
+        public MedicationsMaster()
+        {
+            MedicationMedicationMasters = new HashSet<Medication>();
+        }
+
         public int MedicationMastersId { get; set; }
         public string Name { get; set; }
         public string Dosage { get; set; }
@@ -19,5 +24,7 @@ namespace PatientModule.API.Models
 
         public virtual User CreatedByNavigation { get; set; }
         public virtual User UpdatedByNavigation { get; set; }
+        public virtual Medication MedicationMedicationNavigation { get; set; }
+        public virtual ICollection<Medication> MedicationMedicationMasters { get; set; }
     }
 }

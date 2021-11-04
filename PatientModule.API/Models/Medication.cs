@@ -7,6 +7,11 @@ namespace PatientModule.API.Models
 {
     public partial class Medication
     {
+        public Medication()
+        {
+            PatientMedicalDetails = new HashSet<PatientMedicalDetail>();
+        }
+
         public int MedicationId { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -16,5 +21,13 @@ namespace PatientModule.API.Models
         public int MedicationMasterId { get; set; }
         public int PatientId { get; set; }
         public int PatientVisitId { get; set; }
+
+        public virtual User CreatedByNavigation { get; set; }
+        public virtual MedicationsMaster MedicationMaster { get; set; }
+        public virtual MedicationsMaster MedicationNavigation { get; set; }
+        public virtual Patient Patient { get; set; }
+        public virtual PatientVisit PatientVisit { get; set; }
+        public virtual User UpdatedByNavigation { get; set; }
+        public virtual ICollection<PatientMedicalDetail> PatientMedicalDetails { get; set; }
     }
 }

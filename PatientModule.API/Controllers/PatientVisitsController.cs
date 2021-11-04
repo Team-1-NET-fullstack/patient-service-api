@@ -28,7 +28,6 @@ namespace PatientModule.API.Controllers
             _patientVisit = patientVisit;
         }
 
-        // GET: api/PatientVisits
         
         [HttpGet("GetAllVisit")]
         public Object GetAllVisit()
@@ -43,7 +42,6 @@ namespace PatientModule.API.Controllers
             return json;
         }
 
-        // GET: api/PatientVisits/5
       
         [HttpGet("GetVisitById")]
         public Object GetVisitById(int id)
@@ -58,8 +56,7 @@ namespace PatientModule.API.Controllers
             return json;
         }
 
-        // PUT: api/PatientVisits/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+      
         [HttpPut("{id}")]
         //public async Task<IActionResult> PutPatientVisit(int id, PatientVisit patientVisit)
         //{
@@ -89,8 +86,7 @@ namespace PatientModule.API.Controllers
         //    return NoContent();
         //}
 
-        // POST: api/PatientVisits
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+       
         [HttpPost]
         public async Task<Object> AddVisit([FromBody] PatientVisit patientVisit)
         {
@@ -99,9 +95,10 @@ namespace PatientModule.API.Controllers
                 await _patientVisitService.AddVisit(patientVisit);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error Patient visit not added" + ex);
             }
         }
 

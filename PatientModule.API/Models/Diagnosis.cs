@@ -7,6 +7,11 @@ namespace PatientModule.API.Models
 {
     public partial class Diagnosis
     {
+        public Diagnosis()
+        {
+            PatientMedicalDetails = new HashSet<PatientMedicalDetail>();
+        }
+
         public int DiagnosisId { get; set; }
         public int DiagnosisMasterId { get; set; }
         public int PatientVisitId { get; set; }
@@ -20,5 +25,8 @@ namespace PatientModule.API.Models
         public virtual User CreatedByNavigation { get; set; }
         public virtual DiagnosisMaster DiagnosisMaster { get; set; }
         public virtual Patient Patient { get; set; }
+        public virtual PatientVisit PatientVisit { get; set; }
+        public virtual User UpdatedByNavigation { get; set; }
+        public virtual ICollection<PatientMedicalDetail> PatientMedicalDetails { get; set; }
     }
 }

@@ -9,34 +9,34 @@ namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Implemen
 {
     public class AllergyRepository : IAllergyRepository<Allergy>
     {
-        private CTGeneralHospitalContext _context;
+        private CTGeneralHospitalContext _dbContext;
         public AllergyRepository(CTGeneralHospitalContext context)
         {
-            _context = context;
+            _dbContext = context;
         }
 
         public async Task<Allergy> CreateAllergy(Allergy _object)
         {
-            var obj = await _context.Allergies.AddAsync(_object);
-            _context.SaveChanges();
+            var obj = await _dbContext.Allergies.AddAsync(_object);
+            _dbContext.SaveChanges();
             return obj.Entity;
 
         }
 
         public void DeleteAllergy(Allergy _object)
         {
-            _context.Remove(_object);
-            _context.SaveChanges();
+            _dbContext.Remove(_object);
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<Allergy> GetAllAllergy()
         {
-            return _context.Allergies.ToList();
+            return _dbContext.Allergies.ToList();
         }
 
         public Allergy GetByAllergyId(int Id)
         {
-            return _context.Allergies.Where(s => s.PatientAllergyId == Id).FirstOrDefault();
+            return _dbContext.Allergies.Where(s => s.PatientAllergyId == Id).FirstOrDefault();
         }
     }
 }

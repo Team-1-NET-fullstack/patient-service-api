@@ -14,7 +14,5 @@ namespace PatientModule.API.Models
         public double BodyTemperature { get; set; }
         public int RespirationRate { get; set; }
         public int PatientVisitId { get; set; }
-
-        public virtual PatientVisit PatientVisit { get; set; }
     }
 }

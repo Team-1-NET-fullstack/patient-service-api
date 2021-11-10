@@ -55,13 +55,14 @@ namespace PatientModule.API
             services.AddScoped<PatientVisitService>();
             services.AddScoped<PatientVitalService>();
             services.AddScoped<AllergyService>();
+            //services.AddScoped<AllergyMasterService>();
 
 
             services.AddScoped<IPatientRepository<Patient>, PatientRepository>();
             services.AddScoped<IPatientVisitRepository<PatientVisit>, PatientVisitRepository>();
             services.AddScoped<IPatientVitalRepository<PatientVital>, PatientVitalRepository>();
-
             services.AddScoped<IAllergyRepository<Allergy>, AllergyRepository>();
+            //services.AddScoped<IAllergyMasterRepository<AllergyMaster>, AllergyMasterRepository>();
 
         }
 

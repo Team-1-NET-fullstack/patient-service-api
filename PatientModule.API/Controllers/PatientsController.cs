@@ -24,6 +24,28 @@ namespace PatientModule.API.Controllers
 
         }
 
+        //GET All Patients
+        [HttpGet("GetAllPatients")]
+        public Object GetAllPatients()
+        {
+            try
+            {
+                var data = _patientService.GetAllVisits();
+                var json = JsonConvert.SerializeObject(data, Formatting.Indented,
+                    new JsonSerializerSettings()
+                    {
+                        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    }
+                );
+                return json;
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error displaying patient record  " + ex);
+            }
+        }
         //GET All Patient by ID
         [HttpGet("GetPatientById")]
         public Object GetPatientById(int id)
@@ -69,35 +91,9 @@ namespace PatientModule.API.Controllers
                 return false;
             }
         }
-        [HttpPut("{id}")]
-        //public IActionResult PutPatient(int id, [FromBody] Patient patient)
-        //{
-        //    var patientToBeEdited = _patientService.UpdatePatient(id, patient);
-        //    return (IActionResult)patientToBeEdited;
-        //}
+     
 
-        //GET All Patientc
-        [HttpGet("GetAllPatients")]
-        public Object GetAllPatients()
-        {
-            try
-            {
-                var data = _patientService.GetAllVisits();
-                var json = JsonConvert.SerializeObject(data, Formatting.Indented,
-                    new JsonSerializerSettings()
-                    {
-                        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                    }
-                );
-                return json;
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error displaying patient record  " + ex);
-            }
-        }
+       
         [HttpPut("UpdatePatient")]
         public bool UpdatePatient(Patient Object,int id)
         {

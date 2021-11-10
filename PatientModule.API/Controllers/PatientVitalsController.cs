@@ -82,7 +82,7 @@ namespace PatientModule.API.Controllers
         //}
 
        
-        [HttpPost]
+        [HttpPost("AddVitals")]
         public async Task<Object> AddVitals([FromBody] PatientVital patientVital)
         {
             try

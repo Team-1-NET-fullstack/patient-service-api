@@ -29,7 +29,7 @@ namespace PatientModule.API.PatientModule.API.BAL.PatientModule.API.BAL.Services
         {
             return _allergyRepository.GetAllAllergy().Where(x => x.PatientAllergyId == id).ToList();
         }
-        public async Task<Allergy> AddVital(Allergy allergy)
+        public async Task<Allergy> AddAllergy(Allergy allergy)
         {
             return await _allergyRepository.CreateAllergy(allergy);
         }

@@ -21,14 +21,14 @@ namespace PatientModule.API.Controllers
         }
 
         // GET: api/Allergies
-        [HttpGet]
+        [HttpGet("AddAllergies")]
         public async Task<ActionResult<IEnumerable<Allergy>>> GetAllergies()
         {
             return await _context.Allergies.ToListAsync();
         }
 
         // GET: api/Allergies/5
-        [HttpGet("{id}")]
+        [HttpGet("{GetById}")]
         public async Task<ActionResult<Allergy>> GetAllergy(int id)
         {
             var allergy = await _context.Allergies.FindAsync(id);
@@ -74,7 +74,7 @@ namespace PatientModule.API.Controllers
 
         // POST: api/Allergies
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("Post")]
         public async Task<ActionResult<Allergy>> PostAllergy(Allergy allergy)
         {
             _context.Allergies.Add(allergy);

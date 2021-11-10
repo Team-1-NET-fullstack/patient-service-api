@@ -180,6 +180,7 @@ C:\IMPACT2\patient-service-api\PatientModule.API\bin\Debug\net5.0\runtimes\win-a
 C:\IMPACT2\patient-service-api\PatientModule.API\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\IMPACT2\patient-service-api\PatientModule.API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\IMPACT2\patient-service-api\PatientModule.API\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\PatientModule.API.csproj.AssemblyReference.cache
 C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\PatientModule.API.GeneratedMSBuildEditorConfig.editorconfig
 C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\PatientModule.API.AssemblyInfoInputs.cache
 C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\PatientModule.API.AssemblyInfo.cs
@@ -195,4 +196,3 @@ C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\PatientModule.
 C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\ref\PatientModule.API.dll
 C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\PatientModule.API.pdb
 C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\PatientModule.API.genruntimeconfig.cache
-C:\IMPACT2\patient-service-api\PatientModule.API\obj\Debug\net5.0\PatientModule.API.csproj.AssemblyReference.cache

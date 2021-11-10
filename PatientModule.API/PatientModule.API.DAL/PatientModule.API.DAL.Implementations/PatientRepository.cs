@@ -50,25 +50,26 @@ namespace PatientModule.API.PatientModule.API.DAL.PatientModule.API.DAL.Implemen
         //        //public  Task<Patient> Update(int id, Patient patient)
 
 
-        //public Task<Patient> Update(int id, Patient patient)
-        //{
-        //    var entity = _context.Patients.FirstOrDefault(e => e.PatientId == id);
+        public async Task<Patient> Update(int id, Patient patient)
+        {
+            var entity = _context.Patients.FirstOrDefault(e => e.PatientId == id);
 
-        //entity.Title = patient.Title;
-        //    entity.FirstName = patient.FirstName;
-        //    entity.LastName = patient.LastName;
-        //    entity.Gender = patient.Gender;
-        //    entity.Race = patient.Race;
-        //    entity.Languages = patient.Languages;
-        //    entity.Email = patient.Email;
-        //    entity.Address = patient.Address;
-        //    entity.PinCode = patient.PinCode;
-        //    entity.CountryCode = patient.CountryCode;
-        //    entity.ContactNumber = patient.ContactNumber;
-        //    entity.EmergencyContact = patient.EmergencyContact;
-        //    _context.SaveChanges();
+            entity.Title = patient.Title;
+            entity.FirstName = patient.FirstName;
+            entity.LastName = patient.LastName;
+            entity.Gender = patient.Gender;
+            entity.Race = patient.Race;
+            entity.Languages = patient.Languages;
+            entity.Email = patient.Email;
+            entity.Address = patient.Address;
+            entity.PinCode = patient.PinCode;
+            entity.CountryCode = patient.CountryCode;
+            entity.ContactNumber = patient.ContactNumber;
+            entity.EmergencyContact = patient.EmergencyContact;
+            _context.SaveChanges();
+            return entity;
 
-        //}
+        }
 
 
     }
